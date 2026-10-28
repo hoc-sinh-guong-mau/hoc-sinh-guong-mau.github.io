@@ -13,9 +13,12 @@
     "test:watch": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync:github": "node scripts/sync-github.ts",
+    "prebuild": "npm run sync:github"
   },
   "dependencies": {
+    "motion": "14.7.1",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },

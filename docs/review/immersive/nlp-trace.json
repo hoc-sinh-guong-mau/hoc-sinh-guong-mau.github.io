@@ -1,0 +1,27 @@
+{
+  "input": "Môn NLP có mấy tín chỉ?",
+  "status": "ok",
+  "tokens": ["môn", "nlp", "có", "mấy", "tín", "chỉ"],
+  "semantic": {
+    "predicate": "GET_COURSE_INFO",
+    "arguments": {
+      "course_id": "CO3085"
+    },
+    "qtype": "CREDITS"
+  },
+  "intent_entity": {
+    "intent": "GET_COURSE_INFO",
+    "qtype": "CREDITS",
+    "entities": {
+      "course_id": "CO3085"
+    }
+  },
+  "query": {
+    "collection": "course",
+    "filters": {
+      "id": "CO3085"
+    },
+    "select": ["credits"]
+  },
+  "answer": "Môn CO3085 có 3 tín chỉ. Nguồn: course_info.txt."
+}

@@ -1,13 +1,28 @@
+import { useRef } from 'react'
+import { motion, useScroll } from 'motion/react'
+import { useEnhancedScroll } from '../hooks/useEnhancedScroll'
 import { ExternalLink } from '../components/ui/ExternalLink'
-import { profile } from '../data/portfolio'
+import type { Profile } from '../types/portfolio'
 
-export function Contact() {
+export function Contact({ profile }: { profile: Profile }) {
+  const ref = useRef<HTMLElement>(null)
+  const enhanced = useEnhancedScroll()
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'center center'],
+  })
   return (
     <section
+      ref={ref}
       className="section container contact-section"
       id="contact"
       aria-labelledby="contact-heading"
     >
+      <motion.div
+        className="contact-rule"
+        aria-hidden="true"
+        style={enhanced ? { scaleX: scrollYProgress } : {}}
+      />
       <div>
         <h2 id="contact-heading">Let’s connect.</h2>
         <p>

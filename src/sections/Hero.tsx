@@ -1,79 +1,87 @@
-import { profile } from '../data/portfolio'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'motion/react'
+import { useEnhancedScroll } from '../hooks/useEnhancedScroll'
+import type { HeroContent, Profile } from '../types/portfolio'
 
-export function Hero() {
-  const [leadingName, ...remainingNames] = profile.name.split(' ')
+export function Hero({
+  profile,
+  content,
+}: {
+  profile: Profile
+  content: HeroContent
+}) {
+  const [firstName, ...remainingNames] = profile.name.split(' ')
+  const ref = useRef<HTMLElement>(null)
+  const enhanced = useEnhancedScroll()
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  })
+  const y = useTransform(scrollYProgress, [0, 1], [0, 120])
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 24])
   return (
-    <section className="hero container" aria-labelledby="hero-heading">
-      <div className="hero-copy">
-        <p className="location">
-          <span className="location-mark" aria-hidden="true" />
-          {profile.location}
-        </p>
-        <h1 id="hero-heading">
-          {leadingName}
-          <br />
-          {remainingNames.join(' ')}
-          <span className="name-period">.</span>
-        </h1>
-        <p className="hero-role">
-          {profile.role}
-          <br />
-          <span>{profile.focus}</span>
-        </p>
-        <p className="hero-introduction">{profile.introduction}</p>
-        <div className="hero-actions">
-          <a className="button button-primary" href="#work">
-            View projects <span aria-hidden="true">↓</span>
-          </a>
-          <a
-            className="button button-secondary"
-            href={`mailto:${profile.email}`}
-          >
-            Email me
-          </a>
-        </div>
+    <section
+      ref={ref}
+      className="hero container"
+      aria-labelledby="hero-heading"
+    >
+      <div className="hero-topline">
+        <p>{profile.location}</p>
+        <span>Independent portfolio / 2026</span>
       </div>
-      <figure className="system-figure">
-        <div className="system-title">
-          <span className="system-symbol" aria-hidden="true">
-            {'{ }'}
-          </span>
-          <span>Language into structure</span>
+      <motion.div className="hero-title" style={enhanced ? { y } : {}}>
+        <h1 id="hero-heading">
+          {firstName}
+          <br />
+          <span>{remainingNames.join(' ')}.</span>
+        </h1>
+        <motion.div
+          className="engineering-orbit"
+          aria-hidden="true"
+          style={enhanced ? { rotate } : {}}
+        >
+          <svg viewBox="0 0 320 320" fill="none">
+            <circle cx="160" cy="160" r="138" />
+            <ellipse
+              cx="160"
+              cy="160"
+              rx="58"
+              ry="138"
+              transform="rotate(45 160 160)"
+            />
+            <ellipse
+              cx="160"
+              cy="160"
+              rx="58"
+              ry="138"
+              transform="rotate(-45 160 160)"
+            />
+            <path d="M0 160h320M160 0v320" />
+            <circle cx="160" cy="160" r="12" className="orbit-core" />
+          </svg>
+          <span>Interface / Logic / Data</span>
+        </motion.div>
+      </motion.div>
+      <div className="hero-bottom">
+        <div>
+          <p className="hero-role">
+            {profile.role}
+            <br />
+            <span>{profile.focus}</span>
+          </p>
+          <p className="hero-introduction">{profile.introduction}</p>
         </div>
-        <div className="system-flow">
-          <div className="system-node">
-            <span>Input</span>
-            <strong>A course question</strong>
-          </div>
-          <div className="flow-connector" aria-hidden="true" />
-          <div className="system-node system-node-primary">
-            <span>Interpretation</span>
-            <strong>Grammar & semantic rules</strong>
-            <p>NLTK parsing and intent recognition</p>
-          </div>
-          <div className="flow-connector" aria-hidden="true" />
-          <div className="system-node">
-            <span>Retrieval</span>
-            <strong>SQLite query</strong>
-          </div>
-          <div className="flow-connector" aria-hidden="true" />
-          <div className="system-output">
-            <span aria-hidden="true">↳</span>
-            <strong>A template-based answer</strong>
-          </div>
-        </div>
-        <figcaption>
-          A simplified view inside{' '}
-          <a href="#course-assistant">NLP Course Assistant</a>.
-        </figcaption>
-      </figure>
+        <a className="button" href="#work">
+          Explore the work <span aria-hidden="true">↓</span>
+        </a>
+      </div>
       <div className="hero-context">
-        <p>
-          <span>Currently</span>Freelance development at Dong Da
-        </p>
-        <p>
-          <span>Studying</span>Computer Science at HCMUT
-        </p>
+        {content.context.map((item) => (
+          <p key={item.label}>
+            <span>{item.label}</span>
+            {item.value}
+          </p>
+        ))}
       </div>
     </section>
   )

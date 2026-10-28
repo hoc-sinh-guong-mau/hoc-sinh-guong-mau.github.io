@@ -6,7 +6,13 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist/**', 'coverage/**', '.agents/**', '.codex/**']),
+  globalIgnores([
+    'dist/**',
+    'coverage/**',
+    '.cache/**',
+    '.agents/**',
+    '.codex/**',
+  ]),
   {
     files: ['**/*.{js,mjs}'],
     extends: [js.configs.recommended],
@@ -32,7 +38,7 @@ export default defineConfig([
     languageOptions: { globals: globals.browser },
   },
   {
-    files: ['vite.config.ts'],
+    files: ['vite.config.ts', 'scripts/**/*.ts'],
     languageOptions: { globals: globals.node },
   },
 ])

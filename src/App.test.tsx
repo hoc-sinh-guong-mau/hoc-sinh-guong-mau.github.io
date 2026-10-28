@@ -1,10 +1,38 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { projects, profile } from './data/portfolio'
 import App from './App'
 
 describe('Portfolio', () => {
+  it('restores a shared section fragment after React mounts', () => {
+    const original = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      'scrollIntoView',
+    )
+    const scrollIntoView = vi.fn()
+    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
+      configurable: true,
+      value: scrollIntoView,
+    })
+    window.history.replaceState(null, '', '#work')
+    try {
+      render(<App />)
+      expect(scrollIntoView).toHaveBeenCalledWith({
+        behavior: 'instant',
+        block: 'start',
+      })
+      expect(scrollIntoView.mock.instances[0]).toBe(
+        screen.getByRole('region', { name: 'Selected work' }),
+      )
+    } finally {
+      window.history.replaceState(null, '', '/')
+      if (original)
+        Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', original)
+      else Reflect.deleteProperty(HTMLElement.prototype, 'scrollIntoView')
+    }
+  })
+
   it('provides keyboard-accessible navigation to real section targets', async () => {
     const user = userEvent.setup()
     render(<App />)
