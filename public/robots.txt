@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hoc-sinh-guong-mau.github.io/sitemap.xml
