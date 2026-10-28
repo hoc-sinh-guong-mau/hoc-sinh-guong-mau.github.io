@@ -1,6 +1,12 @@
-import { education, profile } from '../data/portfolio'
+import type { AboutContent, EducationEntry } from '../types/portfolio'
 
-export function About() {
+export function About({
+  content,
+  education,
+}: {
+  content: AboutContent
+  education: readonly EducationEntry[]
+}) {
   return (
     <section
       className="section container about-section"
@@ -8,34 +14,32 @@ export function About() {
       aria-labelledby="about-heading"
     >
       <div className="about-copy">
-        <h2 id="about-heading">A little about me</h2>
-        <p className="about-introduction">
-          I’m Quyen, a developer based in {profile.location}.
-        </p>
-        <p>
-          My work connects full-stack JavaScript, backend engineering, and AI
-          integration. I’m interested in how applications handle data, expose
-          clear APIs, and stay understandable through testing and debugging.
-        </p>
-        <p>
-          Alongside my development work, I’m studying Computer Science at HCMUT,
-          with graduation expected in 2027.
-        </p>
+        <h2 id="about-heading">{content.heading}</h2>
+        <p className="about-introduction">{content.introduction}</p>
+        {content.paragraphs.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
       </div>
-      <section
-        className="education"
-        id="education"
-        aria-labelledby="education-heading"
-      >
-        <h2 id="education-heading">Education</h2>
-        <span className="education-year">{education.graduation}</span>
-        <p className="education-program">{education.program}</p>
-        <p>
-          {education.institution}
-          <br />({education.abbreviation})
-        </p>
-        <p className="education-note">Expected graduation</p>
-      </section>
+      {education.length > 0 ? (
+        <section
+          className="education"
+          id="education"
+          aria-labelledby="education-heading"
+        >
+          <h2 id="education-heading">Education</h2>
+          {education.map((entry) => (
+            <div className="education-entry" key={entry.id}>
+              <span className="education-year">{entry.graduation}</span>
+              <h3 className="education-program">{entry.program}</h3>
+              <p>
+                {entry.institution}
+                <br />({entry.abbreviation})
+              </p>
+              <p className="education-note">{entry.status}</p>
+            </div>
+          ))}
+        </section>
+      ) : null}
     </section>
   )
 }

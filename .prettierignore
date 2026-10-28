@@ -7,3 +7,5 @@ skills-lock.json
 .codex/
 .env*
 !.env.example
+
+.cache/

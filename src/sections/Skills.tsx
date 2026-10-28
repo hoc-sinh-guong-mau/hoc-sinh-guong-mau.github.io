@@ -1,6 +1,6 @@
-import { skillGroups } from '../data/portfolio'
+import type { SkillGroup } from '../types/portfolio'
 
-export function Skills() {
+export function Skills({ groups }: { groups: readonly SkillGroup[] }) {
   return (
     <section
       className="section skills-section"
@@ -15,7 +15,7 @@ export function Skills() {
           </div>
         </div>
         <div className="skills-grid">
-          {skillGroups.map((group) => (
+          {groups.map((group) => (
             <div className="skill-group" key={group.title}>
               <h3>{group.title}</h3>
               <ul>

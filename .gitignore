@@ -31,3 +31,5 @@ dist-ssr
 # Verification artifacts
 coverage/
 *.tsbuildinfo
+
+.cache/

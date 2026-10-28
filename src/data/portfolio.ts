@@ -1,5 +1,18 @@
-export const profile = {
+import type {
+  Profile,
+  NavigationItem,
+  Project,
+  ExperienceEntry,
+  SkillGroup,
+  EducationEntry,
+  HeroContent,
+  AboutContent,
+  ArchitectureStage,
+} from '../types/portfolio.ts'
+
+export const profile: Profile = {
   name: 'Truong Hieu Quyen',
+  shortName: 'Quyen',
   location: 'Ho Chi Minh City, Vietnam',
   role: 'Full-Stack JavaScript Developer',
   focus: 'Backend & AI Engineer',
@@ -9,26 +22,28 @@ export const profile = {
     'I work across JavaScript applications, backend services, and AI integrations, with a focus on databases, reliable APIs, testing, and deployment.',
 } as const
 
-export const navigation = [
+export const navigation: readonly NavigationItem[] = [
   { label: 'Work', href: '#work' },
+  { label: 'Architecture', href: '#architecture' },
   { label: 'Experience', href: '#experience' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ] as const
 
-export interface Project {
-  id: string
-  name: string
-  category: string
-  description: string
-  approach: string
-  technologies: readonly string[]
-  repository: string
-}
+export const architectureRepository =
+  'https://github.com/hoc-sinh-guong-mau/NLP_CourseAssistant'
 
 export const projects: readonly Project[] = [
   {
     id: 'deep-research',
+    media: {
+      src: '/images/projects/research-workspace.png',
+      alt: 'Deep Research Chat App initial research workspace',
+      caption: 'Local capture / public React application / no API request',
+      width: 2880,
+      height: 1800,
+    },
+    featured: true,
     name: 'Deep Research Chat App',
     category: 'AI integration',
     description:
@@ -40,6 +55,14 @@ export const projects: readonly Project[] = [
   },
   {
     id: 'course-assistant',
+    media: {
+      src: '/images/projects/course-assistant.png',
+      alt: 'NLP Course Assistant Streamlit interface with course question examples',
+      caption: 'Local capture / public Streamlit application',
+      width: 2880,
+      height: 1800,
+    },
+    featured: true,
     name: 'NLP Course Assistant',
     category: 'Language processing',
     description:
@@ -47,10 +70,18 @@ export const projects: readonly Project[] = [
     approach:
       'Grammar and semantic rules turn course questions into structured queries. SQLite retrieval feeds template-based answers through CLI and Streamlit interfaces.',
     technologies: ['Python', 'NLTK', 'SQLite', 'Streamlit', 'Docker'],
-    repository: 'https://github.com/hoc-sinh-guong-mau/NLP_CourseAssistant',
+    repository: architectureRepository,
   },
   {
     id: 'warehouse',
+    media: {
+      src: '/images/projects/warehouse-source.png',
+      alt: 'Public C++ inventory implementation on GitHub',
+      caption: 'Public source capture / C++ inventory structures',
+      width: 2880,
+      height: 1800,
+    },
+    featured: true,
     name: 'Warehouse Management System',
     category: 'Data structures & algorithms',
     description:
@@ -62,8 +93,9 @@ export const projects: readonly Project[] = [
   },
 ]
 
-export const experience = [
+export const experience: readonly ExperienceEntry[] = [
   {
+    id: 'dong-da',
     company: 'Dong Da',
     role: 'Freelance Full-Stack Developer',
     start: '2026-02',
@@ -81,6 +113,7 @@ export const experience = [
     ],
   },
   {
+    id: 'veron',
     company: 'Veron',
     role: 'AI Engineer Intern',
     start: '2025-07',
@@ -99,7 +132,7 @@ export const experience = [
   },
 ] as const
 
-export const skillGroups = [
+export const skillGroups: readonly SkillGroup[] = [
   {
     title: 'Full-stack JavaScript',
     skills: ['JavaScript', 'TypeScript', 'React', 'NestJS'],
@@ -130,9 +163,64 @@ export const skillGroups = [
   },
 ] as const
 
-export const education = {
-  institution: 'Ho Chi Minh City University of Technology',
-  abbreviation: 'HCMUT',
-  program: 'Computer Science',
-  graduation: '2027',
-} as const
+export const education: readonly EducationEntry[] = [
+  {
+    id: 'hcmut',
+    institution: 'Ho Chi Minh City University of Technology',
+    abbreviation: 'HCMUT',
+    program: 'Computer Science',
+    graduation: '2027',
+    status: 'Expected graduation',
+  },
+] as const
+
+export const about: AboutContent = {
+  heading: 'A little about me',
+  introduction: `I’m Quyen, a developer based in ${profile.location}.`,
+  paragraphs: [
+    'My work connects full-stack JavaScript, backend engineering, and AI integration. I’m interested in how applications handle data, expose clear APIs, and stay understandable through testing and debugging.',
+    'Alongside my development work, I’m studying Computer Science at HCMUT, with graduation expected in 2027.',
+  ],
+}
+
+export const heroContent: HeroContent = {
+  context: [
+    { label: 'Currently', value: 'Freelance development at Dong Da' },
+    { label: 'Studying', value: 'Computer Science at HCMUT' },
+  ],
+}
+
+export const architectureStages: readonly ArchitectureStage[] = [
+  {
+    title: 'Question',
+    description:
+      'A course question enters the assistant. This example was executed against the public repository.',
+    artifact: 'Môn NLP có mấy tín chỉ?',
+  },
+  {
+    title: 'Grammar',
+    description:
+      'NLTK tokenization and feature-based grammar parsing identify the structure of the question.',
+    artifact: '["môn", "nlp", "có", "mấy", "tín", "chỉ"]',
+  },
+  {
+    title: 'Meaning',
+    description:
+      'Semantic rules resolve the requested information and course identifier.',
+    artifact:
+      '{ "predicate": "GET_COURSE_INFO",\n  "arguments": { "course_id": "CO3085" },\n  "qtype": "CREDITS" }',
+  },
+  {
+    title: 'Retrieval',
+    description:
+      'The structured query selects the credits field from the SQLite course collection.',
+    artifact:
+      '{ "collection": "course",\n  "filters": { "id": "CO3085" },\n  "select": ["credits"] }',
+  },
+  {
+    title: 'Answer',
+    description:
+      'A template turns the retrieved record into a source-attributed answer.',
+    artifact: 'Môn CO3085 có 3 tín chỉ.\nNguồn: course_info.txt.',
+  },
+] as const

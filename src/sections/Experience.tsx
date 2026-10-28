@@ -1,7 +1,20 @@
+import { useRef } from 'react'
+import { motion, useScroll } from 'motion/react'
+import { useEnhancedScroll } from '../hooks/useEnhancedScroll'
 import { TagList } from '../components/ui/TagList'
-import { experience } from '../data/portfolio'
+import type { ExperienceEntry } from '../types/portfolio'
 
-export function Experience() {
+export function Experience({
+  entries,
+}: {
+  entries: readonly ExperienceEntry[]
+}) {
+  const ref = useRef<HTMLOListElement>(null)
+  const enhanced = useEnhancedScroll()
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start center', 'end center'],
+  })
   return (
     <section
       className="section container experience-section"
@@ -14,9 +27,14 @@ export function Experience() {
           <p>Building across application and AI engineering.</p>
         </div>
       </div>
-      <ol className="experience-list">
-        {experience.map((job) => (
-          <li className="experience-item" key={job.company}>
+      <ol ref={ref} className="experience-list">
+        <motion.li
+          className="timeline-progress"
+          aria-hidden="true"
+          style={enhanced ? { scaleY: scrollYProgress } : {}}
+        />
+        {entries.map((job) => (
+          <li className="experience-item" key={job.id}>
             <div className="experience-meta">
               <h3>{job.company}</h3>
               <p>

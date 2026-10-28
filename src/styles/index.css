@@ -2,19 +2,19 @@
 
 :root {
   font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
-  color: #132b3a;
-  background: #eef2f6;
-  color-scheme: light;
+  color: #eff3f8;
+  background: #080c12;
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --color-bg: #eef2f6;
-  --color-surface: #fff;
-  --color-ink: #132b3a;
-  --color-muted: #4f6473;
-  --color-accent: #005a75;
-  --color-accent-soft: #b8dde2;
-  --color-border: #cbd5de;
+  --color-bg: #080c12;
+  --color-surface: #111a26;
+  --color-ink: #eff3f8;
+  --color-muted: #a5b3c7;
+  --color-accent: #8bc9e8;
+  --color-accent-soft: #244353;
+  --color-border: #2c3746;
   --radius-control: 6px;
   --radius-panel: 16px;
   --motion-feedback: 160ms;
@@ -24,7 +24,7 @@
   box-sizing: border-box;
 }
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 body {
   margin: 0;
@@ -45,6 +45,8 @@ a {
 a:hover {
   color: var(--color-accent);
 }
+summary:focus-visible,
+pre:focus-visible,
 a:focus-visible,
 button:focus-visible,
 [tabindex='-1']:focus-visible {
@@ -85,7 +87,7 @@ ol {
   padding: 0;
 }
 [id] {
-  scroll-margin-top: 32px;
+  scroll-margin-top: 110px;
 }
 svg {
   display: block;
