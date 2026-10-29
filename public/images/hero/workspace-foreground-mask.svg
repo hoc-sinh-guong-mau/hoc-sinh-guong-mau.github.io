@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1823 863">
+  <!-- Source-space occlusion contours for workspace.png; preserve registration. -->
+  <g fill="white">
+    <path d="M0 783 1823 783V863H0Z"/>
+    <path d="M884 779Q889 761 907 760L1169 755 1177 766 1204 761 1204 784H884Z"/>
+    <path d="M1196 781Q1189 778 1197 759L1293 559Q1299 544 1312 547L1582 569Q1594 569 1587 584L1509 778Z"/>
+    <path d="M1541 783V682Q1540 673 1554 673H1645Q1652 673 1652 682V700Q1681 694 1684 722Q1689 754 1652 765V783ZM1652 713V751Q1674 744 1671 725Q1670 710 1652 713Z" fill-rule="evenodd"/>
+  </g>
+</svg>

@@ -44,8 +44,8 @@ src/
   data/portfolio.ts      # Reviewed editorial content and manual featured flags
   data/github.snapshot.json # Versioned public metadata fallback
   types/portfolio.ts     # Explicit content and metadata models
-  sections/              # Hero, projects, architecture, experience, skills, about, contact
-  hooks/                 # Responsive/reduced-motion scroll enhancement gate
+  sections/              # Hero, About, Projects, Skills, Experience, Education, Credentials, Contact
+  hooks/                 # Separate Hero and below-Hero GSAP motion scopes
   assets/                # Bundled images and SVGs
   styles/                # Global and page styles
   test/setup.ts          # Shared test cleanup
@@ -54,7 +54,7 @@ public/                  # Fonts, favicon, robots.txt, sitemap.xml
 .agents/skills/          # Installed Codex skills and their resources
 ```
 
-Add `components/layout`, `data`, or `utils` only when concrete code needs them. Keep state near its consumers, use direct imports, and avoid speculative abstractions. The design uses Be Vietnam Pro, locally hosted under `public/fonts/` with its SIL Open Font License. It uses a graphite palette with ice-blue and copper accents, flexible grids, visible keyboard focus, and reduced-motion support. Motion is pinned for scroll-linked transforms; CSS owns layout and sticky positioning.
+Keep state near its consumers, use direct imports, and avoid speculative abstractions. Below the approved Hero, the design uses locally hosted Be Vietnam Pro, dark cinematic navy, blue accents, and restrained glass surfaces. Content tokens are scoped to `.portfolio-content` in `App.css`; the Hero keeps its own styles and master timeline. Only the Hero pins. Other sections use short GSAP reveals, a timeline rail, and small desktop image parallax, with native scrolling and reduced-motion support.
 
 ## Quality and testing
 
@@ -86,10 +86,13 @@ Use concise imperative commit messages; describe the change, checks, linked issu
 
 Edit `src/data/portfolio.ts`; its explicit models live in `src/types/portfolio.ts`. Sections receive typed props from `App.tsx`, and `ProjectCard`, `TagList`, and `ExternalLink` handle reusable presentation.
 
-- **Projects:** append an entry with a unique anchor-safe `id`, `featured` flag, title, category, factual description, technical approach, technologies, and an exact public GitHub repository URL. Array order sets display order; only `featured: true` entries appear. Metadata never selects projects or replaces editorial descriptions.
+- **Projects:** append an entry with a unique anchor-safe `id`, `featured` flag, title, category, factual description, technical approach, technologies, and an exact public GitHub repository URL. Optional `role` and `demo` render only when supplied and verified. Array order sets display order; only `featured: true` entries appear. Metadata never selects projects or replaces editorial descriptions.
 - **Experience:** append an entry with a stable `id`, company, role, ISO start/end months (`end: null` for current work), display labels, description, and technologies. Keep newest first.
-- **Skills:** add a group or items to its `skills` array; the grid adapts automatically.
-- **Education:** append entries with unique IDs; all entries render in the Education panel.
+- **Skills:** add a group or items to its `skills` array; the grid adapts automatically. Optional `icon` is a root-relative SVG path.
+- **Education:** append entries with unique IDs. Set `logo` to an approved SVG path and its intrinsic dimensions. Optional `startYear` appears only when provided; graduation and status remain explicit. Preserve logo colors and proportions.
+- **Certificates and awards:** add owner-confirmed items to `credentials` with ID, kind, title, issuer, ISO date, date label, and optional verification URL. The empty collection displays an honest publication state.
+- **Contact:** email and GitHub are required profile fields. Optional `facebook`, `linkedin`, and `phone` appear only when supplied. Use a public international phone number; the UI generates `tel:` and `mailto:` actions. No disabled or invented contact links are displayed.
+- **SVGs:** place new files under `public/<page>/<name>.svg`, then reference them as `/<page>/<name>.svg` in content. The existing HCMUT logo remains at its original path. Contact and skills icons are local upstream SVGs; provenance and licenses are documented in [the section review](docs/review/sections/README.md).
 - **Profile and biography:** update `profile`, `about`, and `heroContent` together when career facts change. The architecture stages are an executed public-code trace, not a live demo. Update the trace and its evidence together. Update matching identity metadata in `index.html` when appropriate.
 
 Use only approved public information. Do not add client internals, unverified outcomes, metrics, invented screenshots, unsupported live demos, or certifications. Adding entries requires no component changes or GitHub credentials.
@@ -116,7 +119,7 @@ Tests use injected fetch functions and fixed timestamps, covering validation, id
 
 ## Scroll scenes and project captures
 
-The hero, project chapters, NLP sequence, timeline, and contact scene are composed independently. Outside the hero, `useEnhancedScroll` enables pinning and scroll transforms only at ≥1024px wide, ≥720px tall, with no reduced-motion preference. Smaller/shorter windows and reduced motion use normal document flow and manual stage buttons. There is no scroll interception or autoplay. Native project disclosures release their pin while expanded.
+The page order is Hero → About → Projects → Skills → Experience → Education → Certificates & Awards → Contact. The interactive NLP trace is retained inside a Projects disclosure. Its stages use native buttons without a pinned sequence. Project cards and the remaining sections stay in normal flow. `usePortfolioMotion` scopes stable, once-only reveals to content below the Hero; the experience rail scrubs in either direction. Reduced motion reverts these animations without hiding content. There is no scroll interception.
 
 Add an optional `media` object to a project with a root-relative `src`, descriptive `alt`, factual `caption`, and intrinsic `width`/`height`. Store approved captures in `public/images/projects/`; projects without media still render their editorial content. Keep captions explicit about local application versus public source captures. Record repository revision, capture procedure, and limitations in [the visual review](docs/review/immersive/README.md). Never manufacture reports or dashboard screens.
 
@@ -129,3 +132,7 @@ The current hero follows the supplied cinematic reference using separate environ
 See [the hero review](docs/review/reference-hero/README.md) for screenshots, artwork provenance, exact-reproduction limitations, and the optional arm/hand layer contract. Original layered artwork is still needed for an exact match and an articulated wave.
 
 See [the scroll motion review](docs/review/hero-scroll/README.md) for phase timing, responsive configuration, browser regression instructions, measured observations, before/after captures, and the future rig asset specification.
+
+See [the workspace compositing review](docs/review/hero-compositing/README.md) for foreground occlusion, the workspace mask registration contract, and desktop/tablet/mobile comparisons.
+
+See [the section redesign review](docs/review/sections/README.md) for responsive captures, Hero preservation checks, missing content, SVG sources, and the optional Playwright verification command.

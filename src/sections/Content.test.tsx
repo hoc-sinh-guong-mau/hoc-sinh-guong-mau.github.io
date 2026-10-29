@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { About } from './About'
+import { Education } from './Education'
 import { Experience } from './Experience'
 import { Skills } from './Skills'
-import { about, education, experience, skillGroups } from '../data/portfolio'
+import { education, experience, skillGroups } from '../data/portfolio'
 
 describe('Extensible portfolio content', () => {
   it('renders an additional experience entry from data', () => {
@@ -33,9 +33,8 @@ describe('Extensible portfolio content', () => {
 
   it('renders multiple education entries without component changes', () => {
     render(
-      <About
-        content={about}
-        education={[
+      <Education
+        entries={[
           ...education,
           {
             id: 'example',
@@ -48,12 +47,8 @@ describe('Extensible portfolio content', () => {
         ]}
       />,
     )
-    expect(
-      screen.getByRole('heading', { name: 'Computer Science' }),
-    ).toBeDefined()
-    expect(
-      screen.getByRole('heading', { name: 'A test-only program' }),
-    ).toBeDefined()
+    expect(screen.getByText('Computer Science')).toBeDefined()
+    expect(screen.getByText('A test-only program')).toBeDefined()
   })
 
   it('renders a newly configured skills group', () => {

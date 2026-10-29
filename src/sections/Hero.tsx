@@ -15,6 +15,7 @@ export function Hero({
   const ref = useRef<HTMLElement>(null)
   useHeroAnimation(ref)
   const [firstName, ...remainingNames] = profile.name.split(' ')
+  const workspaceStyle = { backgroundImage: `url(${content.background})` }
   return (
     <section
       ref={ref}
@@ -25,10 +26,16 @@ export function Hero({
         className="hero-environment"
         data-hero-background
         aria-hidden="true"
-        style={{ backgroundImage: `url(${content.background})` }}
+        style={workspaceStyle}
       />
       <div className="hero-lighting" aria-hidden="true" />
       <HeroCharacter artwork={content.character} />
+      <div
+        className="hero-workspace-foreground"
+        data-hero-background
+        aria-hidden="true"
+        style={workspaceStyle}
+      />
       <div className="cinematic-copy" data-hero-copy>
         <p className="hero-greeting">
           <span aria-hidden="true" />

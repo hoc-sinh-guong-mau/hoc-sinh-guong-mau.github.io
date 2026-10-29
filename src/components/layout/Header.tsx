@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import type { NavigationItem, Profile } from '../../types/portfolio'
 export function Header({
   profile,
@@ -6,6 +7,16 @@ export function Header({
   profile: Profile
   navigation: readonly NavigationItem[]
 }) {
+  const menu = useRef<HTMLDetailsElement>(null)
+  const links = navigation.map((item) => (
+    <a
+      key={item.href}
+      href={item.href}
+      className={item.href === '#top' ? 'nav-current' : undefined}
+    >
+      {item.label}
+    </a>
+  ))
   return (
     <header className="cinematic-header" id="top">
       <a
@@ -18,20 +29,46 @@ export function Header({
           <path d="m28 25 12 12M7 20 19 8" />
         </svg>
       </a>
-      <nav aria-label="Main navigation">
-        {navigation.map((item) => (
-          <a
-            key={item.href}
-            href={item.href}
-            className={item.href === '#top' ? 'nav-current' : undefined}
-          >
-            {item.label}
-          </a>
-        ))}
+      <nav className="portfolio-navigation" aria-label="Main navigation">
+        {links}
       </nav>
       <a className="header-connect glass-button" href="#contact">
         Let’s Connect <span aria-hidden="true">➜</span>
       </a>
+      <details
+        className="navigation-disclosure"
+        ref={menu}
+        onKeyDown={(event) => {
+          if (event.key === 'Escape' && menu.current) {
+            menu.current.open = false
+            menu.current.querySelector('summary')?.focus()
+          }
+        }}
+      >
+        <summary>
+          Sections{' '}
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </summary>
+        <nav
+          aria-label="Mobile navigation"
+          onClick={(event) => {
+            if (event.target instanceof HTMLAnchorElement && menu.current)
+              menu.current.open = false
+          }}
+        >
+          {links}
+        </nav>
+      </details>
     </header>
   )
 }

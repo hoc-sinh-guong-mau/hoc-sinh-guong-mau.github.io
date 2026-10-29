@@ -83,6 +83,7 @@
   place-items: center;
 }
 .cinematic-hero {
+  --workspace-position: center;
   position: relative;
   isolation: isolate;
   width: 100%;
@@ -93,17 +94,21 @@
   color: #f9f9fc;
   font-family: Arial, sans-serif;
 }
-.hero-environment {
+.hero-environment,
+.hero-workspace-foreground {
   position: absolute;
   inset: 0;
-  z-index: -3;
   background-size: cover;
-  background-position: center;
+  background-position: var(--workspace-position);
+  pointer-events: none;
 }
-.hero-lighting {
+.hero-environment {
+  z-index: -3;
+}
+.hero-lighting,
+.hero-workspace-foreground::after {
   position: absolute;
   inset: 0;
-  z-index: -2;
   background:
     linear-gradient(
       90deg,
@@ -119,6 +124,25 @@
       transparent 76%,
       #01040a40
     );
+}
+.hero-lighting {
+  z-index: -2;
+}
+/* Registered to workspace.png: only the existing desk and objects occlude the
+   portrait. Cover sizing and camera motion must match the environment exactly. */
+.hero-workspace-foreground {
+  z-index: 2;
+  mask: url('/images/hero/workspace-foreground-mask.svg')
+    var(--workspace-position) / cover no-repeat;
+}
+.hero-workspace-foreground::after {
+  content: '';
+}
+.hero-workspace-foreground::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 22% 3% at 48% 92%, #0006, transparent);
 }
 .hero-character {
   position: absolute;
@@ -459,13 +483,12 @@
     padding: 7px 10px;
   }
   .cinematic-hero {
+    --workspace-position: 62% center;
     height: 930px;
     max-height: none;
   }
-  .hero-environment {
-    background-position: 62% center;
-  }
-  .hero-lighting {
+  .hero-lighting,
+  .hero-workspace-foreground::after {
     background: linear-gradient(
       180deg,
       #01050ba6,
