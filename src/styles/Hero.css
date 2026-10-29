@@ -1,0 +1,570 @@
+.cinematic-header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 10;
+  height: 92px;
+  padding-inline: 3.7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  color: #f5f6fc;
+  font-family: Arial, sans-serif;
+}
+.reference-wordmark {
+  width: 39px;
+  height: 39px;
+  display: block;
+  flex-shrink: 0;
+}
+.reference-wordmark svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 3.5;
+}
+.cinematic-header nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.5vw, 42px);
+  margin-left: 0;
+}
+.cinematic-header nav a {
+  font-size: 15px;
+  text-decoration: none;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.cinematic-header .nav-current {
+  color: #d9e6ff;
+  text-shadow: 0 0 18px #5589ff;
+}
+.glass-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  padding: 10px 21px;
+  gap: 24px;
+  border: 1px solid #78b8ff;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(115deg, #102743b5, #163779b3);
+  box-shadow:
+    inset 0 0 18px #337bff22,
+    0 6px 24px #0003;
+  text-decoration: none;
+  backdrop-filter: blur(12px);
+}
+.glass-button:hover {
+  color: #fff;
+  background-color: #1d477a;
+}
+.glass-button > span {
+  color: #8ac7ff;
+  font-size: 27px;
+  line-height: 1;
+}
+.header-connect {
+  min-height: 44px;
+  font-size: 14px;
+  padding: 9px 13px 9px 18px;
+  gap: 13px;
+}
+.header-connect > span {
+  font-size: 20px;
+  border-radius: 50%;
+  background: #4388fa;
+  color: #12316d;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+}
+.cinematic-hero {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: max(680px, 47.3vw);
+  max-height: 900px;
+  overflow: hidden;
+  background: #050a15;
+  color: #f9f9fc;
+  font-family: Arial, sans-serif;
+}
+.hero-environment {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background-size: cover;
+  background-position: center;
+}
+.hero-lighting {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(
+      90deg,
+      #01050bbd 0%,
+      #0207104a 34%,
+      transparent 55%,
+      #030b2520
+    ),
+    linear-gradient(
+      180deg,
+      #02040b50,
+      transparent 24%,
+      transparent 76%,
+      #01040a40
+    );
+}
+.hero-character {
+  position: absolute;
+  z-index: 1;
+  width: 46%;
+  height: 87%;
+  bottom: -0.5%;
+  left: 27%;
+  pointer-events: none;
+}
+.character-body,
+.character-arm,
+.character-hand {
+  position: absolute;
+  inset: 0;
+}
+.hero-character img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: bottom;
+}
+.character-arm {
+  transform-origin: 31% 59%;
+}
+.character-hand {
+  transform-origin: 30% 42%;
+}
+.cinematic-copy {
+  position: absolute;
+  left: 4.3%;
+  top: 17.1%;
+  z-index: 3;
+  width: 41%;
+}
+.hero-greeting {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 18px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #c3d1ee;
+}
+.hero-greeting > span {
+  width: 13px;
+  height: 13px;
+  background: #2879ff;
+  border-radius: 50%;
+}
+.cinematic-copy h1 {
+  font-size: clamp(46px, 4.85vw, 82px);
+  font-weight: 700;
+  line-height: 0.93;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  margin-top: 30px;
+  text-wrap: nowrap;
+}
+.cinematic-role {
+  text-transform: uppercase;
+  font-size: clamp(12px, 1.2vw, 19px);
+  letter-spacing: 0.15em;
+  color: #c8d5f1;
+  margin-top: 10px;
+  white-space: nowrap;
+}
+.cinematic-introduction {
+  font-size: clamp(16px, 1.3vw, 21px);
+  line-height: 1.45;
+  margin-top: 20px;
+}
+.cinematic-introduction span {
+  display: block;
+}
+.cinematic-actions {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-top: 31px;
+  font-size: 15px;
+}
+.scroll-invitation {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  text-decoration: none;
+  font-size: 14px;
+  color: #bccce7;
+  white-space: nowrap;
+}
+.scroll-invitation > span {
+  font-size: 24px;
+}
+.cinematic-context {
+  display: flex;
+  margin: 64px 0 0;
+  padding: 0;
+  gap: 0;
+}
+.cinematic-context > div {
+  padding-inline: 24px;
+  border-left: 1px solid #839bce40;
+}
+.cinematic-context > div:first-child {
+  border-left: 0;
+  padding-left: 0;
+  padding-right: 26px;
+}
+.cinematic-context dt {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.cinematic-context dd {
+  font-size: 14px;
+  color: #b4c1df;
+  margin: 5px 0 0;
+  white-space: nowrap;
+}
+.technology-panels {
+  position: absolute;
+  right: 2.9%;
+  top: 16.2%;
+  width: 29.7%;
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+  gap: 22px;
+  z-index: 4;
+  pointer-events: none;
+}
+.technology-main {
+  transform: perspective(1000px) rotateY(-6deg) rotateZ(-3deg);
+}
+.glass-panel {
+  border: 1px solid #85a4ee4a;
+  background: linear-gradient(125deg, #1b2945c9, #111c33d9);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 0 #b9d2ff15,
+    0 10px 25px #0002;
+  border-radius: 12px;
+}
+.glass-code {
+  overflow: hidden;
+  border-color: #a1baf478;
+}
+.code-tabs {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 16px 0;
+  gap: 10px;
+  font-size: 12px;
+}
+.code-tabs > span {
+  padding-bottom: 15px;
+  white-space: nowrap;
+}
+.code-tab-active {
+  color: #92d6ff;
+  border-bottom: 2px solid #45adff;
+}
+.code-body {
+  padding: 14px 12px 18px 25px;
+  background: #030a18bf;
+  border-radius: 8px;
+  margin: 0 7px 7px;
+  font:
+    clamp(8px, 0.76vw, 12px)/1.65 ui-monospace,
+    monospace;
+  color: #ebedff;
+}
+.code-body ol {
+  padding-left: 12px;
+}
+.code-body li {
+  padding-left: 5px;
+  white-space: pre;
+}
+.code-body li::marker {
+  color: #526b95;
+}
+.code-purple {
+  color: #dc8adb;
+}
+.code-cyan {
+  color: #50dad9;
+}
+.glass-impact {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  gap: 20px;
+}
+.glass-impact svg {
+  width: 35%;
+  flex-shrink: 0;
+  stroke: #7dcbff;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 5px #218aff);
+}
+.glass-impact p {
+  max-width: 110px;
+  font-size: 14px;
+  line-height: 1.3;
+}
+.technology-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  transform: rotateZ(-2deg);
+}
+.technology-stack li {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 12px;
+  min-height: 49px;
+  color: #e5e9ff;
+  font-size: 12px;
+}
+.technology-stack svg {
+  width: 26px;
+  height: 26px;
+  stroke: #e4eaff;
+  stroke-width: 1.4;
+  flex-shrink: 0;
+}
+.hero-bottom-edge {
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  z-index: 5;
+  background: #a6b7f12e;
+}
+@media (min-width: 1600px) {
+  .cinematic-copy h1 {
+    margin-top: 45px;
+  }
+  .cinematic-context {
+    margin-top: 80px;
+  }
+}
+@media (max-width: 1199px) and (min-width: 768px) {
+  .cinematic-header {
+    gap: 15px;
+    padding-inline: 4%;
+  }
+  .cinematic-header nav {
+    margin-left: 0;
+    gap: 18px;
+  }
+  .cinematic-header nav a {
+    font-size: 13px;
+  }
+  .header-connect {
+    font-size: 12px;
+    gap: 10px;
+    padding-inline: 12px;
+  }
+  .cinematic-hero {
+    height: 690px;
+  }
+  .cinematic-copy {
+    top: 20%;
+    width: 52%;
+  }
+  .cinematic-copy h1 {
+    font-size: 5.2vw;
+  }
+  .cinematic-role {
+    font-size: 11px;
+  }
+  .hero-character {
+    left: 34%;
+    width: 58%;
+    height: 58%;
+  }
+  .technology-panels {
+    top: 18%;
+    right: 3%;
+    width: 30%;
+    grid-template-columns: 1fr;
+  }
+  .technology-stack {
+    display: none;
+  }
+  .glass-impact {
+    padding: 10px;
+    gap: 10px;
+  }
+  .glass-impact p {
+    max-width: 110px;
+    font-size: 11px;
+  }
+  .code-tabs {
+    font-size: 10px;
+  }
+  .cinematic-context {
+    margin-top: 60px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .glass-impact {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .cinematic-header {
+    height: auto;
+    padding: 18px 20px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .reference-wordmark {
+    width: 30px;
+    height: 30px;
+  }
+  .cinematic-header nav {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .cinematic-header nav a {
+    font-size: 11px;
+    min-height: 36px;
+  }
+  .header-connect {
+    font-size: 12px;
+    min-height: 36px;
+    border-radius: 9px;
+    padding: 7px 10px;
+  }
+  .cinematic-hero {
+    height: 930px;
+    max-height: none;
+  }
+  .hero-environment {
+    background-position: 62% center;
+  }
+  .hero-lighting {
+    background: linear-gradient(
+      180deg,
+      #01050ba6,
+      #02071080 48%,
+      #02071015 75%,
+      #02071060
+    );
+  }
+  .cinematic-copy {
+    top: 150px;
+    left: 6%;
+    width: 88%;
+  }
+  .hero-greeting {
+    font-size: 13px;
+  }
+  .hero-greeting > span {
+    width: 9px;
+    height: 9px;
+  }
+  .cinematic-copy h1 {
+    font-size: clamp(37px, 9.9vw, 68px);
+    margin-top: 25px;
+    line-height: 1.03;
+  }
+  .cinematic-role {
+    font-size: clamp(9px, 2.5vw, 14px);
+    letter-spacing: 0.1em;
+  }
+  .cinematic-introduction {
+    font-size: 15px;
+    margin-top: 22px;
+  }
+  .cinematic-actions {
+    gap: 18px;
+    margin-top: 25px;
+    font-size: 13px;
+  }
+  .glass-button {
+    min-height: 46px;
+    padding-inline: 14px;
+    gap: 16px;
+  }
+  .scroll-invitation {
+    font-size: 11px;
+    gap: 10px;
+  }
+  .cinematic-context {
+    margin-top: 27px;
+  }
+  .cinematic-context > div {
+    padding-inline: 18px;
+  }
+  .cinematic-context > div:first-child {
+    padding-right: 18px;
+  }
+  .cinematic-context dt {
+    font-size: 14px;
+  }
+  .cinematic-context dd {
+    font-size: 10px;
+  }
+  .hero-character {
+    left: -7.5%;
+    bottom: -2%;
+    width: 115%;
+    height: 45%;
+  }
+  .technology-panels {
+    top: auto;
+    right: 5%;
+    bottom: 220px;
+    width: 37%;
+    display: block;
+    z-index: 0;
+    opacity: 0.8;
+  }
+  .technology-stack,
+  .glass-impact {
+    display: none;
+  }
+  .code-tabs {
+    font-size: 7px;
+    padding: 9px 7px 0;
+    gap: 5px;
+  }
+  .code-tabs > span {
+    padding-bottom: 8px;
+  }
+  .code-body {
+    font-size: 5px;
+    padding: 8px 3px 8px 14px;
+  }
+}
+
+.glass-impact p span {
+  display: block;
+  white-space: nowrap;
+}
+.technology-stack li > span {
+  white-space: nowrap;
+}
