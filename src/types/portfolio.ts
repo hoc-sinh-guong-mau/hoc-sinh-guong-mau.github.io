@@ -72,7 +72,27 @@ export interface AboutContent {
   paragraphs: readonly string[]
 }
 
+export interface CharacterLayer {
+  src: string
+  width: number
+  height: number
+  pivot: string
+}
+
+export interface CharacterArtwork {
+  body: CharacterLayer
+  arm?: CharacterLayer
+  hand?: CharacterLayer
+}
+
 export interface HeroContent {
+  greeting: string
+  role: string
+  introduction: readonly string[]
+  panelMessage: readonly string[]
+  technologies: readonly string[]
+  background: string
+  character: CharacterArtwork
   context: readonly { label: string; value: string }[]
 }
 

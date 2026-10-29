@@ -1,7 +1,9 @@
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'motion/react'
-import { useEnhancedScroll } from '../hooks/useEnhancedScroll'
+import { useHeroAnimation } from '../hooks/useHeroAnimation'
+import { HeroCharacter } from '../components/hero/HeroCharacter'
+import { TechnologyPanels } from '../components/hero/TechnologyPanels'
 import type { HeroContent, Profile } from '../types/portfolio'
+import '../styles/Hero.css'
 
 export function Hero({
   profile,
@@ -10,79 +12,58 @@ export function Hero({
   profile: Profile
   content: HeroContent
 }) {
-  const [firstName, ...remainingNames] = profile.name.split(' ')
   const ref = useRef<HTMLElement>(null)
-  const enhanced = useEnhancedScroll()
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  })
-  const y = useTransform(scrollYProgress, [0, 1], [0, 120])
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 24])
+  useHeroAnimation(ref)
+  const [firstName, ...remainingNames] = profile.name.split(' ')
   return (
     <section
       ref={ref}
-      className="hero container"
+      className="cinematic-hero"
       aria-labelledby="hero-heading"
     >
-      <div className="hero-topline">
-        <p>{profile.location}</p>
-        <span>Independent portfolio / 2026</span>
-      </div>
-      <motion.div className="hero-title" style={enhanced ? { y } : {}}>
+      <div
+        className="hero-environment"
+        data-hero-background
+        aria-hidden="true"
+        style={{ backgroundImage: `url(${content.background})` }}
+      />
+      <div className="hero-lighting" aria-hidden="true" />
+      <HeroCharacter artwork={content.character} />
+      <div className="cinematic-copy" data-hero-copy>
+        <p className="hero-greeting">
+          <span aria-hidden="true" />
+          {content.greeting}
+        </p>
         <h1 id="hero-heading">
           {firstName}
           <br />
-          <span>{remainingNames.join(' ')}.</span>
+          {remainingNames.join(' ')}
         </h1>
-        <motion.div
-          className="engineering-orbit"
-          aria-hidden="true"
-          style={enhanced ? { rotate } : {}}
-        >
-          <svg viewBox="0 0 320 320" fill="none">
-            <circle cx="160" cy="160" r="138" />
-            <ellipse
-              cx="160"
-              cy="160"
-              rx="58"
-              ry="138"
-              transform="rotate(45 160 160)"
-            />
-            <ellipse
-              cx="160"
-              cy="160"
-              rx="58"
-              ry="138"
-              transform="rotate(-45 160 160)"
-            />
-            <path d="M0 160h320M160 0v320" />
-            <circle cx="160" cy="160" r="12" className="orbit-core" />
-          </svg>
-          <span>Interface / Logic / Data</span>
-        </motion.div>
-      </motion.div>
-      <div className="hero-bottom">
-        <div>
-          <p className="hero-role">
-            {profile.role}
-            <br />
-            <span>{profile.focus}</span>
-          </p>
-          <p className="hero-introduction">{profile.introduction}</p>
+        <p className="cinematic-role">{content.role}</p>
+        <p className="cinematic-introduction">
+          {content.introduction.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </p>
+        <div className="cinematic-actions">
+          <a className="glass-button" href="#work">
+            View My Work <span aria-hidden="true">⟶</span>
+          </a>
+          <a className="scroll-invitation" href="#work">
+            Scroll to explore <span aria-hidden="true">↓</span>
+          </a>
         </div>
-        <a className="button" href="#work">
-          Explore the work <span aria-hidden="true">↓</span>
-        </a>
+        <dl className="cinematic-context">
+          {content.context.map((item) => (
+            <div key={item.label}>
+              <dt>{item.value}</dt>
+              <dd>{item.label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
-      <div className="hero-context">
-        {content.context.map((item) => (
-          <p key={item.label}>
-            <span>{item.label}</span>
-            {item.value}
-          </p>
-        ))}
-      </div>
+      <TechnologyPanels content={content} />
+      <div className="hero-bottom-edge" aria-hidden="true" />
     </section>
   )
 }

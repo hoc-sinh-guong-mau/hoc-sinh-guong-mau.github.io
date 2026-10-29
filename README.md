@@ -121,3 +121,9 @@ The hero, project chapters, NLP sequence, timeline, and contact scene are compos
 Add an optional `media` object to a project with a root-relative `src`, descriptive `alt`, factual `caption`, and intrinsic `width`/`height`. Store approved captures in `public/images/projects/`; projects without media still render their editorial content. Keep captions explicit about local application versus public source captures. Record repository revision, capture procedure, and limitations in [the visual review](docs/review/immersive/README.md). Never manufacture reports or dashboard screens.
 
 `architectureStages` controls the interactive trace; stage buttons adapt to the entry count. Keep the verified trace in `docs/review/immersive/nlp-trace.json` aligned with the data. Review scroll transitions, keyboard selection, expanded details, anchor navigation, and contact links at desktop, tablet, mobile, and reduced motion after layout changes. Before/after captures and the storyboard are in `docs/review/immersive/`.
+
+## Reference-led hero artwork
+
+The current hero follows the supplied cinematic reference using separate environment, transparent character, text, and glass-panel components. Its data is in `heroContent`; presentation is in `src/components/hero/` and `src/styles/Hero.css`. GSAP ScrollTrigger owns only hero entrance/parallax, while existing Motion sections retain their behavior. Reduced motion stays static, and tablet/mobile omit parallax. The six-frame animation study is not public UI.
+
+See [the hero review](docs/review/reference-hero/README.md) for screenshots, artwork provenance, exact-reproduction limitations, and the optional arm/hand layer contract. Original layered artwork is still needed for an exact match and an articulated wave.

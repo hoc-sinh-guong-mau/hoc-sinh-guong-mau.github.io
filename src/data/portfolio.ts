@@ -23,12 +23,13 @@ export const profile: Profile = {
 } as const
 
 export const navigation: readonly NavigationItem[] = [
-  { label: 'Work', href: '#work' },
-  { label: 'Architecture', href: '#architecture' },
-  { label: 'Experience', href: '#experience' },
+  { label: 'Home', href: '#top' },
   { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#work' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Education', href: '#education' },
   { label: 'Contact', href: '#contact' },
-] as const
+]
 
 export const architectureRepository =
   'https://github.com/hoc-sinh-guong-mau/NLP_CourseAssistant'
@@ -184,9 +185,30 @@ export const about: AboutContent = {
 }
 
 export const heroContent: HeroContent = {
+  greeting: "Hello, I'm",
+  role: 'Software Engineer · AI Engineer',
+  introduction: [
+    'Building useful things with code and AI.',
+    'Turning ideas into real-world impact.',
+  ],
+  panelMessage: ['Turning', 'ideas into', 'real-world impact.'],
+  technologies: ['LLM', 'RAG', 'Agents', 'Product', 'Open Source'],
+  background: '/images/hero/workspace.png',
+  character: {
+    body: {
+      src: '/images/hero/character.png',
+      width: 1312,
+      height: 1199,
+      pivot: '50% 100%',
+    },
+  },
   context: [
-    { label: 'Currently', value: 'Freelance development at Dong Da' },
-    { label: 'Studying', value: 'Computer Science at HCMUT' },
+    {
+      label: 'Projects',
+      value: `${projects.filter((project) => project.featured).length}+`,
+    },
+    { label: 'Focus Area', value: 'AI/Backend' },
+    { label: 'Computer Science', value: 'HCMUT' },
   ],
 }
 
