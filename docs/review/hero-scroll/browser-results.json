@@ -1,0 +1,19 @@
+{
+  "results": [
+    "Desktop wheel and reverse scrolling restore the same timeline state",
+    "Trackpad-like incremental wheel input advances the scene",
+    "Fast forward/reverse scrolling releases and restores the scene",
+    "Resizing within desktop and across the tablet breakpoint preserves progress without duplicate pins",
+    "Reduced motion, keyboard navigation, native anchors, Back/Forward, and direct section fragments pass",
+    "CDP touch swipe scrolls mobile natively, without pinning or hiding copy"
+  ],
+  "timing": {
+    "frames": 96,
+    "medianMs": 16.69999999999891,
+    "p95Ms": 16.700000000000728,
+    "maxMs": 16.700000000000728,
+    "longTasksMs": []
+  },
+  "errors": [],
+  "note": "Headless Chrome rAF timing in one local run; not physical-device FPS or a performance guarantee."
+}

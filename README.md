@@ -116,7 +116,7 @@ Tests use injected fetch functions and fixed timestamps, covering validation, id
 
 ## Scroll scenes and project captures
 
-The hero, project chapters, NLP sequence, timeline, and contact scene are composed independently. `useEnhancedScroll` enables pinning and scroll transforms only at ≥1024px wide, ≥720px tall, with no reduced-motion preference. Smaller/shorter windows and reduced motion use normal document flow and manual stage buttons. There is no scroll interception, autoplay, or continuous animation loop. Native project disclosures release their pin while expanded.
+The hero, project chapters, NLP sequence, timeline, and contact scene are composed independently. Outside the hero, `useEnhancedScroll` enables pinning and scroll transforms only at ≥1024px wide, ≥720px tall, with no reduced-motion preference. Smaller/shorter windows and reduced motion use normal document flow and manual stage buttons. There is no scroll interception or autoplay. Native project disclosures release their pin while expanded.
 
 Add an optional `media` object to a project with a root-relative `src`, descriptive `alt`, factual `caption`, and intrinsic `width`/`height`. Store approved captures in `public/images/projects/`; projects without media still render their editorial content. Keep captions explicit about local application versus public source captures. Record repository revision, capture procedure, and limitations in [the visual review](docs/review/immersive/README.md). Never manufacture reports or dashboard screens.
 
@@ -124,6 +124,8 @@ Add an optional `media` object to a project with a root-relative `src`, descript
 
 ## Reference-led hero artwork
 
-The current hero follows the supplied cinematic reference using separate environment, transparent character, text, and glass-panel components. Its data is in `heroContent`; presentation is in `src/components/hero/` and `src/styles/Hero.css`. GSAP ScrollTrigger owns only hero entrance/parallax, while existing Motion sections retain their behavior. Reduced motion stays static, and tablet/mobile omit parallax. The six-frame animation study is not public UI.
+The current hero follows the supplied cinematic reference using separate environment, transparent character, text, and glass-panel components. Its data is in `heroContent`; presentation is in `src/components/hero/` and `src/styles/Hero.css`. One GSAP ScrollTrigger master timeline controls reversible hero motion: desktop pinning, a shorter tablet sequence, and unpinned mobile parallax. Reduced motion stays static. Existing Motion sections retain their behavior. The six-frame animation study is not public UI.
 
 See [the hero review](docs/review/reference-hero/README.md) for screenshots, artwork provenance, exact-reproduction limitations, and the optional arm/hand layer contract. Original layered artwork is still needed for an exact match and an articulated wave.
+
+See [the scroll motion review](docs/review/hero-scroll/README.md) for phase timing, responsive configuration, browser regression instructions, measured observations, before/after captures, and the future rig asset specification.
