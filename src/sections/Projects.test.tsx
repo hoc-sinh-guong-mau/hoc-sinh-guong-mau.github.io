@@ -16,6 +16,25 @@ const project: Project = {
 }
 
 describe('Data-driven projects', () => {
+  it('shows a role and demo only when explicitly supplied', () => {
+    render(
+      <Projects
+        repositoryIndexUrl="https://github.com/example"
+        items={[
+          {
+            ...project,
+            role: 'Test-only contributor role',
+            demo: 'https://example.com/demo',
+          },
+        ]}
+        metadata={{}}
+      />,
+    )
+    expect(screen.getByText('Role: Test-only contributor role')).toBeDefined()
+    expect(
+      screen.getByRole('link', { name: /Live demo/ }).getAttribute('href'),
+    ).toBe('https://example.com/demo')
+  })
   it('renders a new entry without changing the UI and works without metadata', () => {
     render(
       <Projects

@@ -8,7 +8,7 @@ export function Skills({ groups }: { groups: readonly SkillGroup[] }) {
       aria-labelledby="skills-heading"
     >
       <div className="container">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <div>
             <h2 id="skills-heading">Technical skills</h2>
             <p>The tools and practices behind the work.</p>
@@ -16,7 +16,18 @@ export function Skills({ groups }: { groups: readonly SkillGroup[] }) {
         </div>
         <div className="skills-grid">
           {groups.map((group) => (
-            <div className="skill-group" key={group.title}>
+            <div
+              className="skill-group glass-surface"
+              key={group.title}
+              data-reveal
+            >
+              {group.icon && (
+                <span
+                  className="skill-icon"
+                  aria-hidden="true"
+                  style={{ maskImage: `url(${group.icon})` }}
+                />
+              )}
               <h3>{group.title}</h3>
               <ul>
                 {group.skills.map((skill) => (

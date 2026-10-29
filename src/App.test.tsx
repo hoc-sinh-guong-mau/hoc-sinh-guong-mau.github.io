@@ -5,33 +5,66 @@ import { projects, profile } from './data/portfolio'
 import App from './App'
 
 describe('Portfolio', () => {
-  it('restores a shared section fragment after React mounts', () => {
-    const original = Object.getOwnPropertyDescriptor(
-      HTMLElement.prototype,
-      'scrollIntoView',
+  it('keeps the approved Hero first and follows the requested section order', () => {
+    const { container } = render(<App />)
+    expect(container.querySelector('main > :first-child')?.className).toBe(
+      'cinematic-hero',
     )
-    const scrollIntoView = vi.fn()
-    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
-      configurable: true,
-      value: scrollIntoView,
-    })
-    window.history.replaceState(null, '', '#work')
-    try {
-      render(<App />)
-      expect(scrollIntoView).toHaveBeenCalledWith({
-        behavior: 'instant',
-        block: 'start',
-      })
-      expect(scrollIntoView.mock.instances[0]).toBe(
-        screen.getByRole('region', { name: 'Selected work' }),
-      )
-    } finally {
-      window.history.replaceState(null, '', '/')
-      if (original)
-        Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', original)
-      else Reflect.deleteProperty(HTMLElement.prototype, 'scrollIntoView')
-    }
+    expect(
+      Array.from(
+        container.querySelectorAll('.portfolio-content > section'),
+        (section) => section.id,
+      ),
+    ).toEqual([
+      'about',
+      'work',
+      'skills',
+      'experience',
+      'education',
+      'credentials',
+      'contact',
+    ])
   })
+  it.each(['work', 'architecture'])(
+    'restores the shared #%s fragment after React mounts',
+    (fragment) => {
+      const original = Object.getOwnPropertyDescriptor(
+        HTMLElement.prototype,
+        'scrollIntoView',
+      )
+      const scrollIntoView = vi.fn()
+      Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
+        configurable: true,
+        value: scrollIntoView,
+      })
+      window.history.replaceState(null, '', `#${fragment}`)
+      try {
+        render(<App />)
+        expect(scrollIntoView).toHaveBeenCalledWith({
+          behavior: 'instant',
+          block: 'start',
+        })
+        expect(scrollIntoView.mock.instances[0]).toBe(
+          document.getElementById(fragment),
+        )
+        if (fragment === 'architecture')
+          expect(
+            document.querySelector<HTMLDetailsElement>(
+              '.architecture-disclosure',
+            )?.open,
+          ).toBe(true)
+      } finally {
+        window.history.replaceState(null, '', '/')
+        if (original)
+          Object.defineProperty(
+            HTMLElement.prototype,
+            'scrollIntoView',
+            original,
+          )
+        else Reflect.deleteProperty(HTMLElement.prototype, 'scrollIntoView')
+      }
+    },
+  )
 
   it('provides keyboard-accessible navigation to real section targets', async () => {
     const user = userEvent.setup()
@@ -85,7 +118,9 @@ describe('Portfolio', () => {
       expect(link.getAttribute('target')).toBe('_blank')
       expect(link.getAttribute('rel')).toBe('noopener noreferrer')
     }
-    expect(screen.getAllByRole('article')).toHaveLength(3)
+    expect(screen.getAllByRole('article')).toHaveLength(
+      projects.filter((project) => project.featured).length,
+    )
   })
 
   it('offers working email and GitHub contact links without a form backend', () => {

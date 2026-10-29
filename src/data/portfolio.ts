@@ -8,6 +8,7 @@ import type {
   HeroContent,
   AboutContent,
   ArchitectureStage,
+  Credential,
 } from '../types/portfolio.ts'
 
 export const profile: Profile = {
@@ -27,7 +28,9 @@ export const navigation: readonly NavigationItem[] = [
   { label: 'About', href: '#about' },
   { label: 'Projects', href: '#work' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Education', href: '#education' },
+  { label: 'Awards', href: '#credentials' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -136,10 +139,12 @@ export const experience: readonly ExperienceEntry[] = [
 export const skillGroups: readonly SkillGroup[] = [
   {
     title: 'Full-stack JavaScript',
+    icon: '/skills/code-xml.svg',
     skills: ['JavaScript', 'TypeScript', 'React', 'NestJS'],
   },
   {
     title: 'Backend & data',
+    icon: '/skills/database.svg',
     skills: [
       'REST APIs',
       'PostgreSQL',
@@ -150,10 +155,12 @@ export const skillGroups: readonly SkillGroup[] = [
   },
   {
     title: 'AI & language',
+    icon: '/skills/brain-circuit.svg',
     skills: ['Python', 'FastAPI', 'Gemini API', 'NLTK', 'AI integration'],
   },
   {
     title: 'Engineering practice',
+    icon: '/skills/wrench.svg',
     skills: [
       'Integration testing',
       'Debugging',
@@ -172,17 +179,41 @@ export const education: readonly EducationEntry[] = [
     program: 'Computer Science',
     graduation: '2027',
     status: 'Expected graduation',
+    logo: {
+      src: '/images/education/HCMCUT.svg',
+      width: 400,
+      height: 404,
+    },
   },
 ] as const
 
 export const about: AboutContent = {
-  heading: 'A little about me',
+  heading: 'About me',
   introduction: `I’m Quyen, a developer based in ${profile.location}.`,
   paragraphs: [
     'My work connects full-stack JavaScript, backend engineering, and AI integration. I’m interested in how applications handle data, expose clear APIs, and stay understandable through testing and debugging.',
     'Alongside my development work, I’m studying Computer Science at HCMUT, with graduation expected in 2027.',
   ],
+  focusAreas: [
+    {
+      title: 'Backend engineering',
+      description: 'Clear REST APIs, relational data, and integration testing.',
+    },
+    {
+      title: 'Full-stack development',
+      description:
+        'JavaScript and TypeScript, from React interfaces to NestJS services.',
+    },
+    {
+      title: 'AI engineering',
+      description:
+        'Document processing, language tools, and practical AI integrations.',
+    },
+  ],
 }
+
+// Publish only owner-confirmed credentials; an empty list is an intentional state.
+export const credentials: readonly Credential[] = []
 
 export const heroContent: HeroContent = {
   greeting: "Hello, I'm",

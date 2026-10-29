@@ -5,7 +5,7 @@ import { createHeroTimeline, heroMotionSettings } from './heroMotion'
 let scene: gsap.Context | undefined
 function fixture(mode: 'desktop' | 'tablet' | 'mobile') {
   const root = document.createElement('section')
-  root.innerHTML = `<div data-hero-background></div><div data-hero-character></div><div data-hero-panels><div class="glass-code"></div><div class="glass-impact"></div><ul class="technology-stack"><li></li></ul></div><div class="cinematic-copy"><h1>Quyen</h1><div class="cinematic-actions"><a href="#work">View my work</a></div></div>`
+  root.innerHTML = `<div data-hero-background></div><div data-hero-character></div><div class="hero-workspace-foreground" data-hero-background></div><div data-hero-panels><div class="glass-code"></div><div class="glass-impact"></div><ul class="technology-stack"><li></li></ul></div><div class="cinematic-copy"><h1>Quyen</h1><div class="cinematic-actions"><a href="#work">View my work</a></div></div>`
   document.body.append(root)
   let timeline!: gsap.core.Timeline
   scene = gsap.context(() => {
@@ -18,6 +18,22 @@ afterEach(() => {
   document.body.replaceChildren()
 })
 describe('Hero scroll sequence', () => {
+  it.each(['desktop', 'mobile'] as const)(
+    'keeps foreground occlusion registered to the workspace in %s motion',
+    (mode) => {
+      const { root, timeline } = fixture(mode)
+      const layers = root.querySelectorAll<HTMLElement>(
+        '[data-hero-background]',
+      )
+      const background = layers.item(0)
+      const foreground = layers.item(1)
+      for (const progress of [0, 0.5, 1, 0.25, 0]) {
+        timeline.progress(progress)
+        expect(foreground.style.transform).toBe(background.style.transform)
+        expect(foreground.style.opacity).toBe(background.style.opacity)
+      }
+    },
+  )
   it('reverses to the approved resting composition and keeps actions visible', () => {
     const { root, timeline } = fixture('desktop')
     expect(timeline.duration()).toBe(1)

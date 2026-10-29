@@ -23,6 +23,7 @@ export function createHeroTimeline(root: HTMLElement, mode: HeroMotionMode) {
     paused: true,
     defaults: { ease: 'none', force3D: false },
   })
+  // Both workspace planes share the camera transform to keep occlusion aligned.
   const background = select('[data-hero-background]')
   const character = select('[data-hero-character]')
   const panels = select('[data-hero-panels]')

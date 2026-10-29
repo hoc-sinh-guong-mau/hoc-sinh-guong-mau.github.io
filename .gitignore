@@ -31,5 +31,25 @@ dist-ssr
 # Verification artifacts
 coverage/
 *.tsbuildinfo
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+
+# Local visual review output (keep Markdown and curated evidence JSON)
+/docs/review/**/*.png
+/docs/review/**/browser-results.json
 
 .cache/
+
+# Python runtimes and generated files used by local skills
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# OS metadata and temporary editor files
+Thumbs.db
+Desktop.ini
+*~
+*.tmp

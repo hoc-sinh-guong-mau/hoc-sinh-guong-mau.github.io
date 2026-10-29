@@ -7,6 +7,9 @@ export interface Profile {
   email: string
   github: string
   introduction: string
+  facebook?: string
+  linkedin?: string
+  phone?: string
 }
 
 export interface NavigationItem {
@@ -38,6 +41,8 @@ export interface Project {
   approach: string
   technologies: readonly string[]
   repository: string
+  role?: string
+  demo?: string
 }
 
 export interface ExperienceEntry {
@@ -55,6 +60,7 @@ export interface ExperienceEntry {
 export interface SkillGroup {
   title: string
   skills: readonly string[]
+  icon?: string
 }
 
 export interface EducationEntry {
@@ -64,12 +70,25 @@ export interface EducationEntry {
   program: string
   graduation: string
   status: string
+  startYear?: string
+  logo?: { src: string; width: number; height: number }
+}
+
+export interface Credential {
+  id: string
+  kind: 'Certificate' | 'Award'
+  title: string
+  issuer: string
+  date: string
+  dateLabel: string
+  verificationUrl?: string
 }
 
 export interface AboutContent {
   heading: string
   introduction: string
   paragraphs: readonly string[]
+  focusAreas: readonly { title: string; description: string }[]
 }
 
 export interface CharacterLayer {

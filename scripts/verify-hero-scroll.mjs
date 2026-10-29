@@ -8,7 +8,7 @@ const require = createRequire(
   process.env.PLAYWRIGHT_PACKAGE_JSON || import.meta.url,
 )
 const { chromium } = require('playwright')
-const output = resolve('docs/review/hero-scroll')
+const output = resolve(process.env.HERO_REVIEW_DIR || 'docs/review/hero-scroll')
 const url = process.env.PORTFOLIO_PREVIEW_URL || 'http://127.0.0.1:5183/'
 await mkdir(output, { recursive: true })
 const browser = await chromium.launch({
@@ -68,6 +68,24 @@ async function state(page) {
       ) || 0,
     pins: globalThis.document.querySelectorAll('.pin-spacer-portfolio-hero')
       .length,
+    workspaceAligned: (() => {
+      const [background, foreground] = root.querySelectorAll(
+        '[data-hero-background]',
+      )
+      if (!foreground) return false
+      const back = globalThis.getComputedStyle(background)
+      const front = globalThis.getComputedStyle(foreground)
+      return (
+        back.transform === front.transform &&
+        back.backgroundPosition === front.backgroundPosition &&
+        front.maskImage !== 'none' &&
+        Number(front.zIndex) >
+          Number(
+            globalThis.getComputedStyle(root.querySelector('.hero-character'))
+              .zIndex,
+          )
+      )
+    })(),
     character: new globalThis.DOMMatrix(
       globalThis.getComputedStyle(root.querySelector('[data-hero-character]'))
         .transform,
@@ -92,6 +110,7 @@ try {
   assert.equal(initial.pins, 1)
   assert.equal(initial.distance, 1690)
   assert.equal(initial.overflow, false)
+  assert.equal(initial.workspaceAligned, true)
   await page.screenshot({ path: `${output}/after-desktop.png` })
   await page
     .locator('.cinematic-hero')
@@ -99,6 +118,7 @@ try {
   for (const progress of [0.15, 0.35, 0.5, 0.65, 0.85, 1]) {
     await seek(page, progress, initial.distance)
     const current = await state(page)
+    assert.equal(current.workspaceAligned, true)
     assert(Math.abs(current.y) < 2, `Pin drift at ${progress}: ${current.y}`)
     await page.screenshot({
       path: `${output}/progress-${Math.round(progress * 100)}.png`,
@@ -210,6 +230,7 @@ try {
   await settle(page)
   const tablet = await state(page)
   assert.equal(tablet.pins, 1)
+  assert.equal(tablet.workspaceAligned, true)
   assert(
     Math.abs(tablet.scroll / tablet.distance - capturedProgress) < 0.025,
     `Tablet resize reset: ${JSON.stringify(tablet)}`,
@@ -288,6 +309,7 @@ try {
     { hasTouch: true, isMobile: true },
   )
   assert.equal((await state(mobile)).pins, 0)
+  assert.equal((await state(mobile)).workspaceAligned, true)
   await mobile.screenshot({ path: `${output}/after-mobile.png` })
   const cdp = await mobile.context().newCDPSession(mobile)
   await cdp.send('Input.dispatchTouchEvent', {
